@@ -9,6 +9,11 @@ all leaf values are parsed as strings.
 
 This is version 1.0 of the SEML spec.
 
+## Why SEML
+
+YAML is designed to be human readable and easy to edit, but the spec is very large.
+My contention is that 10% of the implementation effort will give you 80% of the readability.
+
 ## Grammar
 
 ```
@@ -61,7 +66,7 @@ Add an array of the returned elements to the returned list.
 - If the current element is an object element without a value, recurse with the expected indentation.
 Add an object element with the current element's key and an object of the returned elements to the returned list.
 
-## Example:
+## Example
 
 ```
 foo:
@@ -89,4 +94,17 @@ This is parsed as the JSON object:
     ]
   }
 }
+```
+
+## How to do multiline strings
+
+YAML Multiline strings are very useful, but they would complicate the parser somewhat. I'm trying to
+ensure that every line can be parsed without requiring context.
+
+So my recommendation is to just use an array:
+
+```
+text:
+- This is a
+- multiline string.
 ```
