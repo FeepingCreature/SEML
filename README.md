@@ -63,8 +63,8 @@ add the entry to the list.
 - If the current entry is an array entry without a value, recurse with the expected indentation.
 Add an array entry of the returned value to the list.
 
-- If the current element is an object element without a value, recurse with the expected indentation.
-Add an object element with the current element's key and the returned value to the list.
+- If the current entry is an object entry without a value, recurse with the expected indentation.
+Add an object entry with the current entry's key and the returned value to the list.
 
 - Interpret the list and return the result.
 
