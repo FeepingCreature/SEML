@@ -41,14 +41,14 @@ The first line must have an indentation of 0.
 Array entries are considered indented by one greater than the number of spaces.
 This is to allow array entries with the same indentation as the object key they are a part of.
 
-The value of a SEML file is the parsing operation applied to the file. This operation will
+The value of a SEML file is the parse operation applied to the file. This operation will
 exhaust the available lines.
 
-### The parsing operation
+### The parse operation
 
 The parsing operation may recurse. As such, it may be parameterized with a minimum indentation.
-It consumes lines from the input text and returns a list of entries, with a length of at least one.
-Either all entries are object entries, or all are array entries; else it is an error.
+It consumes lines from the input text and returns a value, which is formed by interpreting
+a list of entries.
 
 The first line's indentation is the expected indentation. It must be **greater** than the minimum indentation,
 if one is passed.
@@ -57,14 +57,26 @@ Any line that has indentation greater than expected is an error.
 
 Repeat while the current line's indentation is equal to the expected indentation:
 
-- If the current element has a value, remove whitespace from the front and back of the value and
-add the element to the list to be returned.
+- If the current entry has a value, remove whitespace from the front and back of the value and
+add the entry to the list.
 
-- If the current element is an array element without a value, recurse with the expected indentation.
-Add an array of the returned elements to the returned list.
+- If the current entry is an array entry without a value, recurse with the expected indentation.
+Add an array entry of the returned value to the list.
 
 - If the current element is an object element without a value, recurse with the expected indentation.
-Add an object element with the current element's key and an object of the returned elements to the returned list.
+Add an object element with the current element's key and the returned value to the list.
+
+- Interpret the list and return the result.
+
+### The interpret operation
+
+A list of entries may be interpreted as an object or an array value:
+
+- if it consists of one or more object entries, it is an object value
+
+- if it consists of one or more array entries, it is an array value
+
+- else it is an error.
 
 ## Example
 
